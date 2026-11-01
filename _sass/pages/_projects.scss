@@ -1,0 +1,68 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/breakpoints' as bp;
+
+#projects {
+  display: grid;
+  gap: 1.25rem;
+
+  @include bp.md {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .project-card {
+    overflow: hidden;
+    border-radius: v.$radius-lg;
+    background: var(--card-bg);
+    box-shadow: var(--card-shadow);
+
+    a {
+      display: block;
+      height: 100%;
+      border-bottom: 0;
+
+      &:hover {
+        border-bottom: 0;
+
+        .project-name {
+          color: inherit;
+        }
+      }
+    }
+  }
+
+  .project-image {
+    aspect-ratio: 2 / 1;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .project-body {
+    padding: 1.25rem;
+  }
+
+  .project-name {
+    color: var(--heading-color);
+    font-size: 1.25rem;
+    margin: 0 0 0.5rem;
+  }
+
+  .project-description {
+    color: var(--text-muted-color);
+    line-height: 1.5;
+    margin: 0 0 1rem;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    span {
+      padding: 0 0.5rem;
+      border: 1px solid var(--btn-border-color);
+      border-radius: v.$radius-sm;
+      color: var(--text-color);
+      font-size: 0.85rem;
+    }
+  }
+} /* #projects */

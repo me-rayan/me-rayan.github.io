@@ -1,0 +1,43 @@
+---
+layout: page
+# The list of projects, its content comes from `_data/projects.yml`
+---
+<div id="projects">
+  {% for project in site.data.projects %}
+    {% assign image = project.image %}
+
+    {% if image %}
+      {% unless image contains '://' %}
+        {% assign image = image | relative_url %}
+      {% endunless %}
+    {% elsif project.url contains 'https://github.com/' %}
+      <!-- the default preview image of a GitHub repository -->
+      {% assign image = project.url | replace_first: 'https://github.com/', 'https://opengraph.githubassets.com/1/' %}
+    {% endif %}
+
+    <article class="project-card">
+      <a href="{{ project.url }}" target="_blank" rel="noopener noreferrer">
+        {% if image %}
+          <div class="project-image" style="background-image: url('{{ image }}')"></div>
+        {% endif %}
+
+        <div class="project-body">
+          <h2 class="project-name">{{ project.name }}</h2>
+
+          {% if project.description %}
+            <p class="project-description">{{ project.description }}</p>
+          {% endif %}
+
+          {% if project.tags.size > 0 %}
+            <div class="project-tags">
+              {% for tag in project.tags %}
+                <span>{{ tag }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      </a>
+    </article>
+  {% endfor %}
+</div>
+<!-- #projects -->
