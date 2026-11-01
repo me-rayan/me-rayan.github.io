@@ -1,0 +1,9 @@
+# The header of the homepage, rendered by `_includes/home-header.html`.
+
+banner:
+  text: بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+  image: # optional background, as a site path. E.g. '/assets/img/home/banner.png'
+
+intro: >-
+  As-salamu alaykum, and welcome. This is where I write down what I learn along the way,
+  so take your time, look around, and keep whatever is useful to you.

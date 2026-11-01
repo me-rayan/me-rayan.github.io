@@ -1,0 +1,21 @@
+<!-- The header of the homepage, its content comes from `_data/home.yml` -->
+
+{% assign header = site.data.home %}
+
+<header id="home-header" class="px-xl-1">
+  <div class="header-body">
+    <div
+      class="header-banner"
+      {% if header.banner.image %}
+        style="background-image: url('{{ header.banner.image | relative_url }}')"
+      {% endif %}
+    >
+      <p class="header-banner-text" dir="auto">{{ header.banner.text }}</p>
+    </div>
+
+    {% if header.intro %}
+      <p class="header-intro">{{ header.intro }}</p>
+    {% endif %}
+  </div>
+</header>
+<!-- #home-header -->

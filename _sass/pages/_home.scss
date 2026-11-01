@@ -2,6 +2,62 @@
 @use '../abstracts/breakpoints' as bp;
 @use '../abstracts/placeholders';
 
+#home-header {
+  margin-top: 2rem;
+
+  @include bp.lg {
+    margin-top: 2.5rem;
+  }
+
+  .header-body {
+    overflow: hidden;
+    border-radius: v.$radius-lg;
+    background: var(--card-bg);
+    box-shadow: var(--card-shadow);
+  }
+
+  .header-banner {
+    padding: 2.5rem 1rem;
+    text-align: center;
+    background: linear-gradient(
+      135deg,
+      rgb(10 14 39) 0%,
+      rgb(23 49 117) 50%,
+      rgb(10 14 39) 100%
+    );
+    background-size: cover;
+    background-position: center;
+
+    @include bp.md {
+      padding: 3.5rem 1.75rem;
+    }
+  }
+
+  .header-banner-text {
+    color: rgb(255 255 255);
+    font-family:
+      'Traditional Arabic', 'Arabic Typesetting', 'Noto Naskh Arabic', serif;
+    font-size: 2rem;
+    line-height: 1.6;
+    margin: 0;
+
+    @include bp.md {
+      font-size: 2.75rem;
+    }
+  }
+
+  .header-intro {
+    color: var(--text-color);
+    line-height: 1.5;
+    margin: 0;
+    padding: 1.25rem 1rem;
+
+    @include bp.md {
+      padding: 1.5rem 1.75rem;
+    }
+  }
+} /* #home-header */
+
 #post-list {
   margin-top: 2rem;
 
