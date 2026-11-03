@@ -1,0 +1,82 @@
+---
+layout: page
+# The timeline, its content comes from `_data/timeline.yml`
+---
+{% assign entries = site.data.timeline | sort: 'date' %}
+{% assign now = site.time | date: '%s' | plus: 0 %}
+{% assign current_index = -1 %}
+
+<!-- The current entry is the latest one that has already started -->
+
+{% for entry in entries %}
+  {% assign entry_time = entry.date | date: '%s' | plus: 0 %}
+
+  {% if entry_time <= now %}
+    {% assign current_index = forloop.index0 %}
+  {% endif %}
+{% endfor %}
+
+<!-- Entries outside this range stay hidden until their button is used -->
+
+{% assign first_visible = current_index | minus: page.visible_past %}
+{% if first_visible < 0 %}
+  {% assign first_visible = 0 %}
+{% endif %}
+
+{% assign last_visible = current_index | plus: page.visible_next %}
+{% assign later_count = entries.size | minus: last_visible | minus: 1 %}
+
+<div id="timeline">
+  {% if first_visible > 0 %}
+    <input type="checkbox" id="timeline-earlier" class="timeline-toggle" aria-label="Show earlier entries">
+    <label for="timeline-earlier" class="timeline-more">
+      <span class="show"><i class="fas fa-angle-up fa-fw"></i>Show {{ first_visible }} earlier</span>
+      <span class="hide"><i class="fas fa-angle-down fa-fw"></i>Hide earlier</span>
+    </label>
+  {% endif %}
+
+  {% if later_count > 0 %}
+    <input type="checkbox" id="timeline-later" class="timeline-toggle" aria-label="Show later entries">
+  {% endif %}
+
+  <ul class="timeline-list">
+    {% for entry in entries %}
+      {% if forloop.index0 < current_index %}
+        {% assign state = 'past' %}
+      {% elsif forloop.index0 == current_index %}
+        {% assign state = 'current' %}
+      {% else %}
+        {% assign state = 'next' %}
+      {% endif %}
+
+      {% assign group = '' %}
+      {% if forloop.index0 < first_visible %}
+        {% assign group = ' earlier' %}
+      {% elsif forloop.index0 > last_visible %}
+        {% assign group = ' later' %}
+      {% endif %}
+
+      <li class="timeline-entry {{ state }}{{ group }}">
+        <time class="timeline-date">{{ entry.date | date: '%b %Y' }}</time>
+
+        {% if state == 'current' %}
+          <span class="timeline-now">Now</span>
+        {% endif %}
+
+        <h2 class="timeline-title">{{ entry.title }}</h2>
+
+        {% if entry.description %}
+          <p class="timeline-description">{{ entry.description }}</p>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+
+  {% if later_count > 0 %}
+    <label for="timeline-later" class="timeline-more">
+      <span class="show"><i class="fas fa-angle-down fa-fw"></i>Show {{ later_count }} later</span>
+      <span class="hide"><i class="fas fa-angle-up fa-fw"></i>Hide later</span>
+    </label>
+  {% endif %}
+</div>
+<!-- #timeline -->

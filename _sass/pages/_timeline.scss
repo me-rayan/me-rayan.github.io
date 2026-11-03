@@ -1,0 +1,151 @@
+@use '../abstracts/variables' as v;
+
+#timeline {
+  $dot-size: 12px;
+
+  .timeline-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .timeline-entry {
+    position: relative;
+    margin: 0;
+    padding: 0 0 2rem 2rem;
+
+    /* The line down to the next entry */
+    &::before {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 0.5rem;
+      bottom: -0.5rem;
+      border-left: 2px solid var(--timeline-color);
+    }
+
+    /* The dot */
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.4rem;
+      width: $dot-size;
+      height: $dot-size;
+      border-radius: 50%;
+      background-color: var(--timeline-node-bg);
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+
+      &::before {
+        display: none;
+      }
+    }
+
+    &.current,
+    &.next {
+      &::before {
+        border-left-style: dashed;
+      }
+    }
+
+    &.current {
+      &::after {
+        background-color: var(--link-color);
+        box-shadow: 0 0 0 4px var(--link-underline-color);
+      }
+
+      .timeline-title {
+        color: var(--link-color);
+      }
+    }
+
+    &.next {
+      &::after {
+        border: 2px solid var(--timeline-node-bg);
+        background-color: var(--main-bg);
+      }
+
+      .timeline-title {
+        color: var(--text-muted-color);
+      }
+    }
+
+    &.earlier,
+    &.later {
+      display: none;
+    }
+  }
+
+  .timeline-date {
+    color: var(--text-muted-color);
+    font-size: 0.85rem;
+  }
+
+  .timeline-now {
+    margin-left: 0.5rem;
+    padding: 0 0.5rem;
+    border: 1px solid var(--link-color);
+    border-radius: v.$radius-sm;
+    color: var(--link-color);
+    font-size: 0.75rem;
+  }
+
+  .timeline-title {
+    color: var(--heading-color);
+    font-size: 1.15rem;
+    margin: 0.25rem 0;
+  }
+
+  .timeline-description {
+    color: var(--text-muted-color);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* The checkboxes are only the state behind the buttons */
+  .timeline-toggle {
+    position: absolute;
+    opacity: 0;
+  }
+
+  .timeline-more {
+    margin-bottom: 1.5rem;
+    padding: 0 0.75rem;
+    border: 1px solid var(--btn-border-color);
+    border-radius: v.$radius-sm;
+    color: var(--text-muted-color);
+    font-size: 0.85rem;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--link-color);
+    }
+
+    .hide {
+      display: none;
+    }
+  }
+
+  @each $group in earlier, later {
+    #timeline-#{$group}:checked ~ .timeline-list .#{$group} {
+      display: block;
+    }
+
+    #timeline-#{$group}:checked ~ label[for='timeline-#{$group}'] {
+      .show {
+        display: none;
+      }
+
+      .hide {
+        display: inline;
+      }
+    }
+
+    #timeline-#{$group}:focus-visible ~ label[for='timeline-#{$group}'] {
+      border-color: var(--link-color);
+    }
+  }
+} /* #timeline */

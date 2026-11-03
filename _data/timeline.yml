@@ -1,0 +1,9 @@
+# The entries listed on the Timeline page. They can be in any order, the page sorts them by `date`.
+#
+# Each entry takes a `title` and a `date`, and optionally a `description`.
+# The latest entry that has already started is marked as the current one.
+# How many entries show around it is set in `_tabs/timeline.md`.
+
+# EXAMPLE ENTRIES: replace these with your own before pushing.
+
+[]
