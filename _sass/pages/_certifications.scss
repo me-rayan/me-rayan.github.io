@@ -1,0 +1,158 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/breakpoints' as bp;
+
+#certifications {
+  .certification-group {
+    margin-bottom: 2rem;
+
+    summary {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--main-border-color);
+      color: var(--text-muted-color);
+      list-style: none;
+      cursor: pointer;
+
+      &::-webkit-details-marker {
+        display: none;
+      }
+
+      i {
+        margin-left: auto;
+        transition: transform 0.3s ease-in-out;
+      }
+    }
+
+    &:not([open]) summary i {
+      transform: rotate(-90deg);
+    }
+  }
+
+  .certification-group-title {
+    color: var(--heading-color);
+    font-size: 1.25rem;
+    margin: 0;
+  }
+
+  .certification-group-count {
+    font-size: 0.85rem;
+  }
+
+  .certification-grid {
+    display: grid;
+    gap: 1.25rem;
+
+    @include bp.md {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .certification-card {
+    position: relative;
+    border-radius: v.$radius-lg;
+    background: var(--card-bg);
+    box-shadow: var(--card-shadow);
+
+    a {
+      display: block;
+      height: 100%;
+      padding: 1.25rem;
+      border-bottom: 0;
+
+      &:hover {
+        border-bottom: 0;
+
+        .certification-title {
+          color: inherit;
+        }
+      }
+    }
+  }
+
+  .certification-new {
+    position: absolute;
+    top: -0.6rem;
+    left: -0.4rem;
+    z-index: 1;
+    padding: 0 0.6rem;
+    border-radius: 1rem;
+    background-color: rgb(255 193 7);
+    color: rgb(27 27 30);
+    font-size: 0.75rem;
+    font-weight: 600;
+    pointer-events: none;
+  }
+
+  .certification-header {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .certification-badge {
+    flex: none;
+    width: 3.5rem;
+    height: 3.5rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    &.default {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted-color);
+      font-size: 2rem;
+    }
+  }
+
+  .certification-heading {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .certification-title {
+    color: var(--heading-color);
+    font-size: 1.15rem;
+    margin: 0 0 0.25rem;
+  }
+
+  .certification-provider {
+    color: var(--text-muted-color);
+    font-size: 0.85rem;
+    margin: 0;
+  }
+
+  .certification-rating {
+    position: relative;
+    flex: none;
+    align-self: flex-start;
+    font-size: 0.75rem;
+
+    .stars {
+      display: flex;
+      color: var(--btn-border-color);
+
+      i {
+        flex: none;
+      }
+
+      &.filled {
+        position: absolute;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        color: rgb(255 193 7);
+      }
+    }
+  }
+
+  .certification-meta {
+    color: var(--text-muted-color);
+    font-size: 0.85rem;
+    line-height: 1.75;
+  }
+} /* #certifications */
