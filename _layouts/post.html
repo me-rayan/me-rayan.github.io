@@ -8,7 +8,6 @@ tail_includes:
 script_includes:
   - comment
 ---
-
 {% include lang.html %}
 
 {% include toc-status.html %}
@@ -120,6 +119,10 @@ script_includes:
   {% endif %}
 
   <div class="content">
+    {% if page.disclaimer %}
+      {% include post-disclaimer.html %}
+    {% endif %}
+
     {{ content }}
   </div>
 

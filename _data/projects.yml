@@ -2,8 +2,12 @@
 #
 # `image` is optional, as a site path or a full link. E.g. '/assets/img/projects/banner.png'
 # Without it, a GitHub repository uses its default preview image.
+#
+# `status` is optional text. E.g. Active or Archived
+# `featured: true` is optional and lists the project first.
 
 - name: me-rayan.github.io
   description: Personal blog built on the Chirpy theme.
   url: https://github.com/me-rayan/me-rayan.github.io
+  status: Active
   tags: [Jekyll, SCSS]

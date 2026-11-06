@@ -2,6 +2,23 @@
 
 {% assign header = site.data.home %}
 
+<!-- The current timeline entry and the latest certification review -->
+
+{% assign now = site.time | date: '%s' | plus: 0 %}
+{% assign current_entry = null %}
+{% assign timeline_entries = site.data.timeline | sort: 'date' %}
+
+{% for entry in timeline_entries %}
+  {% assign entry_time = entry.date | date: '%s' | plus: 0 %}
+
+  {% if entry_time <= now %}
+    {% assign current_entry = entry %}
+  {% endif %}
+{% endfor %}
+
+{% assign reviews = site.posts | where_exp: 'item', 'item.certification' %}
+{% assign latest_review = reviews.first %}
+
 <header id="home-header" class="px-xl-1">
   <div class="header-body">
     <div
@@ -15,6 +32,22 @@
 
     {% if header.intro %}
       <p class="header-intro">{{ header.intro }}</p>
+    {% endif %}
+
+    {% if current_entry or latest_review %}
+      <div class="header-now">
+        {% if current_entry %}
+          <a href="{{ '/timeline/' | relative_url }}">
+            <i class="fas fa-history fa-fw"></i>Currently: {{ current_entry.title }}
+          </a>
+        {% endif %}
+
+        {% if latest_review %}
+          <a href="{{ latest_review.url | relative_url }}">
+            <i class="fas fa-certificate fa-fw"></i>Latest review: {{ latest_review.title }}
+          </a>
+        {% endif %}
+      </div>
     {% endif %}
   </div>
 </header>

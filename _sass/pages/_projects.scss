@@ -63,6 +63,11 @@
       border-radius: v.$radius-sm;
       color: var(--text-color);
       font-size: 0.85rem;
+
+      &.project-status {
+        border-color: var(--link-color);
+        color: var(--link-color);
+      }
     }
   }
 } /* #projects */

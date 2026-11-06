@@ -88,6 +88,18 @@ layout: page
                 {% endif %}
               </div>
             </a>
+
+            {% if certification.proof %}
+              {% assign proof = certification.proof %}
+
+              {% unless proof contains '://' %}
+                {% assign proof = proof | relative_url %}
+              {% endunless %}
+
+              <a href="{{ proof }}" class="certification-proof" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-external-link-alt fa-fw"></i>View proof
+              </a>
+            {% endif %}
           </article>
         {% endfor %}
       </div>

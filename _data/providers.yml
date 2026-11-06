@@ -1,0 +1,11 @@
+# The certification providers. A post can use a provider's `name` or any of its `aliases`,
+# in any letter case, and the site always shows the `name`.
+
+- name: Hack The Box
+  aliases: [HTB]
+
+- name: INE Security
+  aliases: [INE]
+
+- name: TryHackMe
+  aliases: [THM]

@@ -1,4 +1,4 @@
-# The header of the homepage, rendered by `_includes/home-header.html`.
+# The header of the homepage, rendered by `_includes/header.html`.
 
 banner:
   text: بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ

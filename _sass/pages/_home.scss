@@ -56,6 +56,27 @@
       padding: 1.5rem 1.75rem;
     }
   }
+
+  .header-now {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.5rem;
+    padding: 0 1rem 1.25rem;
+    font-size: 0.85rem;
+
+    @include bp.md {
+      padding: 0 1.75rem 1.5rem;
+    }
+
+    a {
+      color: var(--text-muted-color);
+
+      &:hover {
+        color: var(--link-color);
+        text-decoration: none;
+      }
+    }
+  }
 } /* #home-header */
 
 #post-list {

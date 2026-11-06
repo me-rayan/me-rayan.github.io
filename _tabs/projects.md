@@ -1,5 +1,5 @@
 ---
 layout: projects
 icon: fas fa-code
-order: 4
+order: 2
 ---
