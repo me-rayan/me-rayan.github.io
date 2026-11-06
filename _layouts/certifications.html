@@ -3,11 +3,16 @@ layout: page
 # The list of posts that have a `certification` block in their front matter
 ---
 {% assign posts = site.posts | where_exp: 'item', 'item.certification' %}
-{% assign groups = posts | group_by_exp: 'item', 'item.certification[page.group_by]' %}
 
 <!-- Posts are sorted newest first, so the first one is the latest review -->
 
 {% assign latest_url = posts.first.url %}
+
+<!-- Certifications without a written review have no page, see `_plugins/certification-review-hook.rb` -->
+
+{% assign unreviewed = site.data.unreviewed_certifications %}
+{% assign entries = posts | concat: unreviewed %}
+{% assign groups = entries | group_by_exp: 'item', 'item.certification[page.group_by]' %}
 
 <div id="certifications">
   {% for group in groups %}
@@ -30,64 +35,79 @@ layout: page
           {% endif %}
 
           <article class="certification-card">
-            {% if post.url == latest_url %}
+            {% if post.url and post.url == latest_url %}
               <span class="certification-new">New</span>
             {% endif %}
 
-            <a href="{{ post.url | relative_url }}">
-              <div class="certification-header">
-                {% if badge %}
-                  <div class="certification-badge" style="background-image: url('{{ badge }}')"></div>
-                {% else %}
-                  <div class="certification-badge default"><i class="fas fa-certificate"></i></div>
-                {% endif %}
+            {% if post.url %}
+              <a href="{{ post.url | relative_url }}" class="certification-body">
+            {% else %}
+              <div class="certification-body">
+            {% endif %}
+            <div class="certification-header">
+              {% if badge %}
+                <div class="certification-badge" style="background-image: url('{{ badge }}')"></div>
+              {% else %}
+                <div class="certification-badge default"><i class="fas fa-certificate"></i></div>
+              {% endif %}
 
-                <div class="certification-heading">
-                  <h3 class="certification-title">{{ post.title }}</h3>
+              <div class="certification-heading">
+                <h3 class="certification-title">{{ post.title }}</h3>
 
-                  {% if certification.provider %}
-                    <p class="certification-provider">{{ certification.provider }}</p>
-                  {% endif %}
-                </div>
-
-                {% if certification.rating %}
-                  <!-- The filled stars sit on top of the empty ones and are cut to the rating -->
-                  <div class="certification-rating" aria-label="{{ certification.rating }} out of 5">
-                    <div class="stars">
-                      {% for i in (1..5) %}
-                        <i class="fas fa-star"></i>
-                      {% endfor %}
-                    </div>
-                    <div class="stars filled" style="width: {{ certification.rating | times: 20 }}%">
-                      {% for i in (1..5) %}
-                        <i class="fas fa-star"></i>
-                      {% endfor %}
-                    </div>
-                  </div>
+                {% if certification.provider %}
+                  <p class="certification-provider">{{ certification.provider }}</p>
                 {% endif %}
               </div>
 
-              <div class="certification-meta">
+              {% if certification.rating %}
+                <!-- The filled stars sit on top of the empty ones and are cut to the rating -->
+                <div class="certification-rating" aria-label="{{ certification.rating }} out of 5">
+                  <div class="stars">
+                    {% for i in (1..5) %}
+                      <i class="fas fa-star"></i>
+                    {% endfor %}
+                  </div>
+                  <div class="stars filled" style="width: {{ certification.rating | times: 20 }}%">
+                    {% for i in (1..5) %}
+                      <i class="fas fa-star"></i>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="certification-meta">
+              {% if post.url %}
                 <div>
                   <i class="far fa-calendar fa-fw me-1"></i>
                   Published: {{ post.date | date: '%B %-d, %Y' }}
                 </div>
+              {% elsif certification.review == 'pending' %}
+                <div>
+                  <i class="far fa-hourglass fa-fw me-1"></i>
+                  Review coming soon
+                </div>
+              {% endif %}
 
-                {% if certification.status %}
-                  <div>
-                    <i class="fas fa-award fa-fw me-1"></i>
-                    Status: {{ certification.status }}
-                  </div>
-                {% endif %}
+              {% if certification.status %}
+                <div>
+                  <i class="fas fa-award fa-fw me-1"></i>
+                  Status: {{ certification.status }}
+                </div>
+              {% endif %}
 
-                {% if certification.validity %}
-                  <div>
-                    <i class="far fa-check-circle fa-fw me-1"></i>
-                    Validity: {{ certification.validity }}
-                  </div>
-                {% endif %}
+              {% if certification.validity %}
+                <div>
+                  <i class="far fa-check-circle fa-fw me-1"></i>
+                  Validity: {{ certification.validity }}
+                </div>
+              {% endif %}
+            </div>
+            {% if post.url %}
+              </a>
+            {% else %}
               </div>
-            </a>
+            {% endif %}
 
             {% if certification.proof %}
               {% assign proof = certification.proof %}

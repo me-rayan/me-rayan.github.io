@@ -4,6 +4,5 @@
 # The latest entry that has already started is marked as the current one.
 # How many entries show around it is set in `_tabs/timeline.md`.
 
-# EXAMPLE ENTRIES: replace these with your own before pushing.
-
-[]
+- title: Earned the AI-RTA certification from CyberWarFare Labs
+  date: 2026-10-31

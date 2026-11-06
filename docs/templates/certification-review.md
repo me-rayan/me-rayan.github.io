@@ -14,6 +14,7 @@ certification:
   status: # Passed or Studied
   validity: # leave out if there was no exam
   proof: # a credential link, or a site path to a PDF
+  # review: pending # card only with "Review coming soon", no post page; use `none` for no label
 ---
 
 ## Overview
